@@ -28,6 +28,8 @@
     "@nestjs/platform-socket.io": "^9.3.12",
     "@nestjs/typeorm": "^9.0.1",
     "@nestjs/websockets": "^9.3.12",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "cross-env": "^7.0.3",
     "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",
