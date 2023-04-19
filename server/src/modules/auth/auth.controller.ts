@@ -1,9 +1,10 @@
-import {Body, Controller, Get, Post, Req, Res} from "@nestjs/common";
+import {Body, Controller, Get, Post, Req, Res, UsePipes} from "@nestjs/common";
 import {Response, Request} from "express";
 import {AuthUserDto} from "./dto/auth-user.dto";
 import {AuthService} from "./auth.service";
 import {IAuth} from "./IAuth";
 import {CreateUserDto} from "../user/dto/create-user.dto";
+import {ValidationPipe} from "../../pipes/validation.pipe";
 
 @Controller('auth')
 export class AuthController{
@@ -11,6 +12,7 @@ export class AuthController{
     constructor(private readonly authService: AuthService) {}
 
     @Post('/login')
+    @UsePipes(ValidationPipe)
     async login(@Body() authData: AuthUserDto, @Res({ passthrough: true }) res: Response): Promise<IAuth>{
         const data = await this.authService.login(authData);
         this.authService.saveCookie(res, data.refreshToken)
@@ -18,6 +20,7 @@ export class AuthController{
     }
 
     @Post('/registration')
+    @UsePipes(ValidationPipe)
     async registration(@Body() userData: CreateUserDto, @Res({ passthrough: true }) res: Response): Promise<IAuth>{
         const data = await this.authService.registration(userData);
         this.authService.saveCookie(res, data.refreshToken)

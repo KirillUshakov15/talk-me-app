@@ -38,7 +38,9 @@ export class AuthService{
         if(candidate) throw ApiError.BadRequest('Пользователь с указанным Email уже зарегистрирован')
         if(data.password !== data.confirmPassword) throw ApiError.BadRequest('Введенные пароли не совпадают')
 
-        const user = await this.userService.create(data);
+        const passwordHash = await bcrypt.hash(data.password, 5)
+
+        const user = await this.userService.create({...data, password: passwordHash});
 
         return await this.tokenService.generate(user)
     }

@@ -1,4 +1,4 @@
-import {Column, Entity, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn, OneToMany} from "typeorm";
 import {IUser} from "../user/IUser";
 import {UserEntity} from "../user/user.entity";
 
@@ -11,5 +11,6 @@ export class TokenEntity{
     refreshToken: string;
 
     @OneToOne(() => UserEntity)
+    @JoinColumn()
     user: IUser;
 }

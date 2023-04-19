@@ -1,4 +1,6 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToMany, PrimaryGeneratedColumn, JoinTable} from "typeorm";
+import {IRoom} from "../messenger/room/IRoom";
+import {RoomEntity} from "../messenger/room/room.entity";
 
 @Entity('users')
 export class UserEntity{
@@ -22,4 +24,18 @@ export class UserEntity{
 
     @Column({default: false})
     online: boolean;
+
+    @ManyToMany(() => RoomEntity)
+    @JoinTable({
+        name: 'participants',
+        joinColumn: {
+            name: 'userId',
+            referencedColumnName: 'id'
+        },
+        inverseJoinColumn: {
+            name: 'roomId',
+            referencedColumnName: 'id'
+        }
+    })
+    rooms: IRoom[]
 }

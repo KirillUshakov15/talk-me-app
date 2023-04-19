@@ -22,9 +22,9 @@ export class TokenService{
         await this.tokenRepository.save(refreshToken, userData.id);
 
         return {
+            userData,
             accessToken,
-            refreshToken,
-            userData
+            refreshToken
         }
     }
 
