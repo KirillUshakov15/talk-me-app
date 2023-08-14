@@ -1,6 +1,10 @@
+import {IsNotEmpty} from "class-validator";
 
 export class DeleteMessageDto{
+    @IsNotEmpty()
     id: string;
-    author: string
-    room: string;
+    @IsNotEmpty()
+    roomID: string;
+
+    page: number;
 }

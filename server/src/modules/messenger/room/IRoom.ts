@@ -9,6 +9,8 @@ export enum RoomType {
 export interface IRoom {
     id: string;
     name?: string;
+    icon: string;
+    type: RoomType;
     users: IUser[]
     messages: IMessage[]
 }

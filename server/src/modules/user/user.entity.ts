@@ -10,7 +10,7 @@ export class UserEntity{
     @Column()
     email: string;
 
-    @Column()
+    @Column({select: false})
     password: string;
 
     @Column()
@@ -19,7 +19,7 @@ export class UserEntity{
     @Column()
     secondName: string;
 
-    @Column({default: ''})
+    @Column({ nullable: true, default: null})
     avatarUrl: string;
 
     @Column({default: false})

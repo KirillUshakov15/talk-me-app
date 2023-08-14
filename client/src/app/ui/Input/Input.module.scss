@@ -1,0 +1,36 @@
+
+.input{
+  width: 100%;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1.5px solid #0d7534;
+  font-size: 16px;
+  padding: 10px 45px 10px 10px;
+}
+
+.input:focus{
+  outline: none !important;
+}
+
+.input:focus::placeholder{
+  font-style: italic;
+}
+
+.password_container{
+  position: relative;
+  margin: 0;
+  padding: 0;
+
+  Input{
+    display: block;
+  }
+  img{
+    cursor: pointer;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 15%;
+    right: 20px;
+  }
+}

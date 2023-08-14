@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const {TsconfigPathsPlugin} = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
     entry: './src/index.tsx',
@@ -9,7 +10,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.(ts|tsx)$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
@@ -29,10 +30,14 @@ module.exports = {
         ],
     },
     devServer: {
-        port: 3000
+        port: 3000,
+        historyApiFallback: true,
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        extensions: ['.tsx', '.ts', '.js'],
+        plugins: [
+            new TsconfigPathsPlugin()
+        ],
     },
     optimization: {
       splitChunks: {
@@ -42,6 +47,7 @@ module.exports = {
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
     },
     plugins : [
         new HtmlWebpackPlugin ({

@@ -1,0 +1,23 @@
+.container{
+  width: 100vw;
+  background-color: #0d7534;
+  color: #e4e4ed;
+  display: flex;
+  justify-content: space-between;
+
+  .logo{
+    cursor: pointer;
+    display: flex;
+    margin-left: 5%;
+    margin-top: 5px;
+
+    img{
+      height: 65px;
+      width: 65px;
+    }
+
+    .logo_text{
+      margin-left: 15px;
+    }
+  }
+}

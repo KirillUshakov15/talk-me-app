@@ -7,5 +7,5 @@ export default [
     UserModule,
     TokenModule,
     AuthModule,
-    MessengerModule
+    MessengerModule,
 ]

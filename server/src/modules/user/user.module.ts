@@ -5,6 +5,8 @@ import {UserController} from "./user.controller";
 import {UserService} from "./user.service";
 import {UserRepository} from "./user.repository";
 import {UserEntity} from "./user.entity";
+import {TokenModule} from "../token/token.module";
+import {MessengerModule} from "../messenger/messenger.module";
 
 @Module({
     controllers: [UserController],
@@ -12,7 +14,9 @@ import {UserEntity} from "./user.entity";
     imports: [
         TypeOrmModule.forFeature([
             UserEntity
-        ])
+        ]),
+        TokenModule,
+        MessengerModule
     ],
     exports: [UserService]
 })

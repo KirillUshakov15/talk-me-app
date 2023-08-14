@@ -23,4 +23,6 @@ export class MessageEntity{
     @Column()
     timestamp: string;
 
+    @Column({default: false})
+    isEdit: boolean
 }

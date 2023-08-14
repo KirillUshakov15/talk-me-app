@@ -1,0 +1,76 @@
+@import '@/styles/templates.scss';
+
+
+.wrapper{
+  width: 25%;
+  @extend .card;
+  padding: 10px;
+  min-width: 330px;
+
+  .header{
+    h3{
+      text-align: center;
+    }
+  }
+
+  .roomsContainer{
+    overflow: auto;
+    max-height: calc(83vh - 130px);
+  }
+
+}
+
+.room{
+  @extend .card;
+  width: 98%;
+  height: 15%;
+  background-color: #0d7534;
+  margin-bottom: 10px;
+  min-height: 80px;
+
+  color: #e4e4ed;
+
+  .container{
+    display: flex;
+    position: relative;
+
+    .icon{
+      margin-top: 6%;
+      margin-left: 5%;
+    }
+
+    .text{
+      margin-left: 15px;
+      width: 55%;
+
+      p{
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 18px;
+      }
+      span{
+        font-size: 14px;
+        max-width: 20%;
+      }
+    }
+
+    .date{
+      position: absolute;
+      font-size: 12px;
+      margin-right: 15px;
+      margin-top: 15px;
+      right: 0;
+      top: 50%
+    }
+  }
+}
+
+.selectedRoom{
+  background-color: #11552a;
+  cursor: pointer;
+}
+
+.room:hover{
+  @extend .selectedRoom;
+}

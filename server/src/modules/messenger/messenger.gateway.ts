@@ -1,5 +1,5 @@
-import {MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer} from "@nestjs/websockets";
-import {Server} from 'socket.io'
+import {ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer} from "@nestjs/websockets";
+import {Server, Socket} from 'socket.io'
 import {RoomService} from "./room/room.service";
 import {CreateMessageDto} from "./message/dto/create-message.dto";
 import {MessageService} from "./message/message.service";
@@ -9,8 +9,12 @@ import {DeleteMessageDto} from "./message/dto/delete-message.dto";
 import {UseGuards, UsePipes} from "@nestjs/common";
 import {CheckAuthGuard} from "../../guards/check-auth.guard";
 import {ValidationPipe} from "../../pipes/validation.pipe";
+import {QueryMessagesDto} from "./message/dto/query-messages.dto";
+import {EditMessageDto} from "./message/dto/edit-message.dto";
 
-@WebSocketGateway()
+@WebSocketGateway({
+    cors: true
+})
 export class MessengerGateway{
 
     constructor(
@@ -21,27 +25,51 @@ export class MessengerGateway{
     @WebSocketServer()
     server: Server
 
-    @SubscribeMessage('get-messages')
-    @UseGuards(CheckAuthGuard)
-    async getMessages(@MessageBody('roomID') roomID: string){
-        const room = await this.roomService.getOne(roomID);
-        this.server.to(roomID).emit('get-messages', room)
+    @SubscribeMessage('messages:get')
+    async getMessages(@MessageBody() queryMessagesDto: QueryMessagesDto){
+        const {roomID} = queryMessagesDto;
+        const messages = await this.messageService.getAll(queryMessagesDto)
+        this.server.to(roomID).emit('room:get', messages)
     }
 
-    @SubscribeMessage('send-message')
-    @UseGuards(CheckAuthGuard)
+    @SubscribeMessage('room:join')
+    async joinRoom(
+        @ConnectedSocket() client: Socket,
+        @MessageBody('roomID') roomID: string
+    ){
+        client.join(roomID);
+        await this.getMessages({roomID, page: 1})
+    }
+
+    @SubscribeMessage('room:leave')
+    async leaveRoom(
+        @ConnectedSocket() client: Socket,
+        @MessageBody('roomID') roomID: string
+    ){
+        client.leave(roomID)
+    }
+
+    @SubscribeMessage('message:send')
     @UsePipes(ValidationPipe)
-    async sendMessage(@MessageBody() createDto: CreateMessageDto, @User() user: IUserData){
-        await this.messageService.create({...createDto, author: user.id});
-        await this.getMessages(createDto.room)
+    async sendMessage(@MessageBody() createDto: CreateMessageDto){
+        const {roomID, page} = createDto;
+        await this.messageService.create(createDto);
+        await this.getMessages({roomID, page})
     }
 
-    @SubscribeMessage('delete-message')
-    @UseGuards(CheckAuthGuard)
+    @SubscribeMessage('message:edit')
     @UsePipes(ValidationPipe)
-    async deleteMessage(@MessageBody() deleteDto: DeleteMessageDto, @User() user: IUserData){
-        await this.messageService.delete(deleteDto, user.id)
-        await this.getMessages(deleteDto.room)
+    async editMessage(@MessageBody() editDto: EditMessageDto){
+        const {roomID, page} = editDto;
+        await this.messageService.edit(editDto)
+        await this.getMessages({roomID, page})
     }
 
+    @SubscribeMessage('message:delete')
+    @UsePipes(ValidationPipe)
+    async deleteMessage(@MessageBody() deleteDto: DeleteMessageDto){
+        const {roomID, page} = deleteDto;
+        await this.messageService.delete(deleteDto)
+        await this.getMessages({roomID, page})
+    }
 }

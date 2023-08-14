@@ -1,9 +1,11 @@
 import {Body, Controller, Get, Param, Post, Query, UseGuards, UsePipes} from "@nestjs/common";
 import {CreateRoomDto} from "./dto/create-room.dto";
 import {RoomService} from "./room.service";
-import {QueryRoomsDto} from "./dto/query-rooms.dto";
+import {QueryRoomDto} from "./dto/query-room.dto";
 import {CheckAuthGuard} from "../../../guards/check-auth.guard";
 import {ValidationPipe} from "../../../pipes/validation.pipe";
+import {User} from "../../../decorators/User";
+import {IUserData} from "../../user/IUser";
 
 @Controller('room')
 export class RoomController{
@@ -13,19 +15,13 @@ export class RoomController{
     @Post('/')
     @UseGuards(CheckAuthGuard)
     @UsePipes(ValidationPipe)
-    async create(@Body() data: CreateRoomDto){
-        return await this.roomService.create(data);
+    async create(@Body() data: CreateRoomDto, @User() user: IUserData){
+        return await this.roomService.create(data, user.id);
     }
 
-    @Get('/all')
+    @Get('/')
     @UseGuards(CheckAuthGuard)
-    async getAll(@Query() queryRoomsDto: QueryRoomsDto){
-        return this.roomService.getAll(queryRoomsDto)
-    }
-
-    @Get('/:id')
-    @UseGuards(CheckAuthGuard)
-    async getOne(@Param('id') id: string){
-        return this.roomService.getOne(id)
+    async getOne(@Query() queryRoomDto: QueryRoomDto){
+        return this.roomService.getOne(queryRoomDto.id)
     }
 }

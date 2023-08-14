@@ -1,0 +1,24 @@
+.wrapper{
+  input{
+    display: none;
+  }
+
+  display: flex;
+
+  Button{
+    margin-right: 10px;
+    i{
+      margin-right: 5px;
+    }
+  }
+
+  .fileContainer{
+    display: flex;
+    margin-top: 10px;
+    span{
+      cursor: pointer;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+  }
+}

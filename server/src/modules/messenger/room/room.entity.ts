@@ -16,6 +16,9 @@ export class RoomEntity{
     @Column()
     type: RoomType
 
+    @Column({nullable: true, default: null})
+    icon: string;
+
     @ManyToMany(() => UserEntity)
     @JoinTable({
         name: 'participants',

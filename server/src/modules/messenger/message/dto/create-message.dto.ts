@@ -5,9 +5,9 @@ export class CreateMessageDto{
     text: string;
 
     @IsNotEmpty()
-    room: string;
+    roomID: string;
 
     author: string;
-
-    timestamp: string;
+    timestamp?: string;
+    page: number;
 }

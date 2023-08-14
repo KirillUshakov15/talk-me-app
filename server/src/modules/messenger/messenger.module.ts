@@ -19,6 +19,7 @@ import {TokenModule} from "../token/token.module";
             MessageEntity
         ]),
         TokenModule
-    ]
+    ],
+    exports: [RoomService]
 })
 export class MessengerModule {}

@@ -50,14 +50,15 @@ export class AuthService{
     }
 
     async refreshAccess(refreshToken: string): Promise<IAuth>{
+
         if(!refreshToken) throw ApiError.Unauthorised()
 
         const tokenIsExist = await this.tokenService.find(refreshToken);
-        const tokenIsValid = await this.tokenService.validate(refreshToken, process.env.RESFRESH_TOKEN_KEY)
+        const tokenIsValid = await this.tokenService.validate(refreshToken, process.env.REFRESH_TOKEN_KEY)
 
         if(!tokenIsValid || !tokenIsExist) throw ApiError.Unauthorised()
 
-        const user = await this.userService.findByEmail(tokenIsValid.id);
+        const user = await this.userService.findByEmail(tokenIsValid.email);
         return this.tokenService.generate(user);
     }
 

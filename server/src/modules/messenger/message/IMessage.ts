@@ -1,10 +1,16 @@
 import {IUser} from "../../user/IUser";
 import {IRoom} from "../room/IRoom";
 
-export class IMessage{
+export interface IMessage{
     id: string;
     text: string;
     author: IUser;
-    room: IRoom;
+    //room: IRoom;
     timestamp: string;
+    isEdit: boolean;
+}
+
+export interface IMessagesPeriod{
+    date: string;
+    messages: IMessage[]
 }

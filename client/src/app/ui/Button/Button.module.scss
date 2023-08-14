@@ -1,0 +1,26 @@
+
+$activeBtnColor: #11552a;
+
+button{
+  background-color: #0d7534;
+  padding: 10px 32px;
+  border-radius: 10px;
+  color: #e4e4ed;
+  text-decoration: none;
+  border: none;
+  font-size: 16px;
+
+  div{
+    display: inline-block;
+  }
+}
+
+button:hover:enabled{
+  background-color: $activeBtnColor;
+  cursor: pointer;
+}
+
+button:disabled{
+  background-color: $activeBtnColor;
+  cursor: default;
+}

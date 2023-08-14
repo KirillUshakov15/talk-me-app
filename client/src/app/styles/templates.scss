@@ -1,0 +1,16 @@
+.card{
+  border: 1.5px solid #0d7534;
+  background-color: #e4e4ed;
+  border-radius: 15px;
+}
+
+@mixin alignCenter{
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  overflow: auto;
+}

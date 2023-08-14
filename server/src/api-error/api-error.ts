@@ -20,4 +20,8 @@ export class ApiError extends HttpException {
     static NotFound(message: string = 'По Вашему запросу ничего не найдено'){
         return new ApiError(404, message)
     }
+
+    static Internal(message: string = 'На сервере произошла непредвиденная ошибка'){
+        return new ApiError(500, message)
+    }
 }

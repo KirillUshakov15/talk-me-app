@@ -35,7 +35,7 @@ export class TokenService{
             return this.jwt.verify(token, {secret: key})
         }
         catch {
-            throw ApiError.Unauthorised()
+            return null
         }
     }
 
