@@ -28,7 +28,7 @@ export const RegistrationForm: FC = () => {
 
     useEffect(() => {
         if(isAuth){
-            navigate(`profile/${userData.id}`)
+            navigate(`../profile/${userData.id}`)
         }
     }, [isAuth])
 

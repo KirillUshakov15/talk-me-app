@@ -27,7 +27,7 @@ export class UserService{
     public async getRooms(currentUserID: string){
         const rooms = await this.userRepository.getUserRooms(currentUserID);
 
-        return rooms.map(room => {
+        return rooms.filter(room => { return room.messages.length > 0 }).map(room => {
             if(room.type === RoomType.DIALOG) this.roomService.prepareDialog(room, currentUserID)
             this.roomService.getLastMessage(room)
             return room;
