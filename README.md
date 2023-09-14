@@ -1,4 +1,4 @@
-![talk-me-app-logo-img](https://github.com/KirillUshakov15/talk-me-app/blob/responsive-interface/client/src/app/assets/talk-me-logo.png)
+![talk-me-logo-img](https://github.com/KirillUshakov15/talk-me-app/blob/responsive-interface/client/src/app/assets/talk-me-logo.png)
 
 # Приложение-мессенджер TalkMe
 
