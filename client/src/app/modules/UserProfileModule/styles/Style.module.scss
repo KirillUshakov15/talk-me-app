@@ -2,18 +2,25 @@
 
 .wrapper {
   display: flex;
-  width: 100%;
+  width: 95%;
   min-height: calc(100% - 20px);
-  padding: 10px;
+  padding-top: 10px;
+}
 
   .leftContainer {
     width: 30%;
 
+    min-height: 400px;
+    min-width: 400px;
+
     .avatar {
-      height: 50%;
+      min-height: 400px;
+      min-width: 400px;
+      height: 40%;
       width: 95%;
       @extend .card;
       padding: 5px;
+      margin: auto;
       img {
         object-fit: cover;
         border-radius: 10px;
@@ -24,10 +31,12 @@
 
     .profileButtons {
       @extend .card;
+      min-width: 400px;
+      width: 95%;
       margin-top: 3%;
       padding: 1%;
       Button{
-        width: 97%;
+        width: 98%;
         margin: 5px;
       }
     }
@@ -38,15 +47,19 @@
       height: 30%;
     }
   }
-}
+
 
 .rightContainer{
-  margin-left: 10px;
+  margin-left: 20px;
   width: 70%;
+  min-width: 500px;
+  min-height: 50px;
 
   .userNameContainer{
     @extend .card;
     width: 100%;
+
+
 
     div{
       margin: 7px;
@@ -58,29 +71,41 @@
   .wall{
     @extend .card;
     width: 100%;
-    margin-top: 2%;
-    min-height: 80%;
+    margin-top: 20px;
+    height: calc(100vh - 200px);
+    min-height: 600px;
   }
 }
 
+
 // Forms style
 
-.formWrapper{
+.formWrapper {
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    width: 100%;
+    h3{
+      font-size: 17px;
+    }
+  }
+
   margin-left: 25%;
   height: 100%;
   width: 50%;
+  min-width: 400px;
 
-  h2{
+  h2 {
     text-align: center;
     margin-top: 25px;
     margin-bottom: 10px;
   }
 
-  h3{
+  h3 {
     margin: 15px;
   }
-
 }
+
 
 .spinnerContainer{
   @include alignCenter;

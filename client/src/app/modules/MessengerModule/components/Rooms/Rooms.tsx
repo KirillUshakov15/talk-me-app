@@ -5,6 +5,8 @@ import {IRoom} from "@/models/IRoom";
 import {useGetRoomsQuery} from "@/services/user-service";
 import {Divider, Input} from "@/ui";
 import {RoomsSkeleton} from "@/modules/MessengerModule/components/Rooms/RoomsSkeleton";
+import {useAppSelector} from "@/hooks/redux";
+import {useMediaQuery} from "react-responsive";
 
 export const Rooms: FC = () => {
     const {data: rooms = [] as IRoom[], isLoading} = useGetRoomsQuery('', {
@@ -12,9 +14,19 @@ export const Rooms: FC = () => {
         pollingInterval: 2500,
     })
 
+    const {room: selectedRoom} = useAppSelector((state) => state.room)
+
+    const isMobileScreen = useMediaQuery({ query: '(max-width: 768px)' })
+
     if(isLoading){
         return (
             <RoomsSkeleton/>
+        )
+    }
+
+    if(isMobileScreen && selectedRoom){
+        return (
+            <></>
         )
     }
 

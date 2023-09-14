@@ -29,16 +29,18 @@
   }
 }
 
-.bodySlim{
-  @extend .body;
-
+@mixin bodySlimTemplate{
   .item{
     ul{
       display: none;
     }
   }
-
   width: 70px;
+}
+
+.bodySlim{
+  @extend .body;
+  @include bodySlimTemplate;
 }
 
 .bodyLarge{
@@ -51,6 +53,10 @@
       transition: all 2s ease;
       padding-top: 25px;
     }
+  }
+
+  @media (max-width: 1224px){
+    @include bodySlimTemplate;
   }
 }
 

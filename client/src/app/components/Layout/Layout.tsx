@@ -15,7 +15,7 @@ export const Layout: FC<IProps> = ({children}) => {
     const {isAuth} = useAppSelector(state => state.auth)
 
     return (
-        <div>
+        <div className={style.appContainer}>
             <header className={style.header}>
                 <Alert/>
                 <Navbar/>

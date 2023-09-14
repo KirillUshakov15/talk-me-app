@@ -1,5 +1,5 @@
 .container{
-  width: 100vw;
+  width: 100%;
   background-color: #0d7534;
   color: #e4e4ed;
   display: flex;
@@ -20,4 +20,17 @@
       margin-left: 15px;
     }
   }
+
+  @media (max-width: 420px){
+    .logo_text{
+      align-content: center;
+      text-align: center;
+      justify-content: center;
+
+      span{
+        display: none;
+      }
+    }
+  }
 }
+

@@ -17,7 +17,6 @@ export function useChat(roomID: string){
     const {initSocket, closeSocket, sendMessage, deleteMessage, getMessages, editMessage} = useSocket(roomID, page)
     //const [messages, setMessages] = useState<IMessagesPeriod[]>([] as IMessagesPeriod[])
 
-
     useEffect(() => {
         initSocket();
 

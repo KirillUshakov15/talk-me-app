@@ -1,11 +1,16 @@
 @import '@/styles/templates.scss';
 
-
 .wrapper{
   width: 25%;
   @extend .card;
   padding: 10px;
-  min-width: 330px;
+  min-width: 320px;
+  min-height: 400px;
+
+  @media (max-width: 768px){
+    min-width: 220px;
+    width: 100%;
+  }
 
   .header{
     h3{
@@ -23,7 +28,7 @@
 .room{
   @extend .card;
   width: 98%;
-  height: 15%;
+  height: 40px;
   background-color: #0d7534;
   margin-bottom: 10px;
   min-height: 80px;
@@ -35,13 +40,16 @@
     position: relative;
 
     .icon{
-      margin-top: 6%;
-      margin-left: 5%;
+      margin-top: 20px;
+      margin-left: 20px;
     }
 
     .text{
       margin-left: 15px;
       width: 55%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       p{
         margin-top: 15px;
@@ -52,6 +60,7 @@
       span{
         font-size: 14px;
         max-width: 20%;
+
       }
     }
 
