@@ -3,6 +3,7 @@ import style from "@/modules/MessengerModule/styles/Messenger.module.scss";
 import {ChatHeader} from "@/modules/MessengerModule/components/ChatHeader";
 import {ChatBody} from "@/modules/MessengerModule/components";
 import {useAppSelector} from "@/hooks/redux";
+import MediaQuery from "react-responsive";
 
 export const Chat: FC = () => {
 
@@ -16,9 +17,11 @@ export const Chat: FC = () => {
                     <ChatBody/>
                 </div>
                 :
-                <div className={style.nonSelectedRoomLabelContainer}>
-                    <h2>Выберите, кому бы хотели написать</h2>
-                </div>
+                <MediaQuery minWidth={768}>
+                    <div className={style.nonSelectedRoomLabelContainer}>
+                        <h2>Выберите, кому бы хотели написать</h2>
+                    </div>
+                </MediaQuery>
             }
         </>
 

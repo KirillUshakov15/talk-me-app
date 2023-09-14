@@ -56,7 +56,6 @@ export const Message: FC<IProps> = ({body, onDelete}) => {
                         {(!userIsAuthor && room!.type === RoomType.CONVERSATION) &&
                             <p>{author.firstName + ' ' + author.secondName}</p>
                         }
-
                     </div>
                     <div>
                         <p>

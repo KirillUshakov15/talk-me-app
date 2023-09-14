@@ -16,6 +16,8 @@ export const Room: FC<IProps> = ({room}) => {
     const {room: selectedRoom} = useAppSelector((state) => state.room)
     const {enterRoom} = useAction()
 
+
+
     const selectRoom = () => {
         enterRoom(room)
     }
@@ -34,7 +36,7 @@ export const Room: FC<IProps> = ({room}) => {
                     <p>{room.name}</p>
                     <span>
                         {isCurrentUser(room.messages[0]?.author.id) && 'Вы: '}
-                        {trimString(room.messages[0]?.text, 18)}
+                        {room.messages[0]?.text}
                     </span>
                 </div>
 

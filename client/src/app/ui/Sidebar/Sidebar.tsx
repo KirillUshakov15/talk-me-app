@@ -2,6 +2,7 @@ import React, {FC, useState} from 'react';
 import style from './Sidebar.module.scss'
 import icons from '@/assets/icons'
 import {SidebarItem} from "@/ui/Sidebar/SidebarItem";
+import MediaQuery from "react-responsive";
 
 interface SidebarExtensions {
     Item: typeof SidebarItem
@@ -20,7 +21,9 @@ export const Sidebar: FC<IProps> & SidebarExtensions = ({children}) => {
 
     return (
         <div className={fullWidth ? style.bodyLarge : style.bodySlim}>
-            <Sidebar.Item onClick={toggle} image={icons.sidebar} title={"Свернуть"}/>
+            <MediaQuery minWidth={1224}>
+                <Sidebar.Item onClick={toggle} image={icons.sidebar} title={"Свернуть"}/>
+            </MediaQuery>
             {children}
         </div>
     );

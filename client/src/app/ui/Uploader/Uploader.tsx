@@ -26,7 +26,7 @@ export const Uploader: FC<IProps> = ({
         }
     }
 
-    const uploadFile = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const uploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.files){
             setFile(e.target.files[0])
         }

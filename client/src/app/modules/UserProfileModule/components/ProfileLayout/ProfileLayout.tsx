@@ -27,7 +27,7 @@ export const ProfileLayout: FC = () => {
 
             <div className={style.rightContainer}>
                 <UserInfoCard username={`${user.firstName} ${user.secondName}`} online={user.online}/>
-                <div className={style.wall}></div>
+                <div className={style.wall}/>
             </div>
         </div>
     );

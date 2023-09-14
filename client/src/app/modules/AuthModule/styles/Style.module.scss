@@ -5,6 +5,11 @@
   @include alignCenter;
 
   .container{
+
+    @media (max-width: 1224px) {
+      width: 80%;
+    }
+
     width: 55%;
     h1{
        text-align: center;
