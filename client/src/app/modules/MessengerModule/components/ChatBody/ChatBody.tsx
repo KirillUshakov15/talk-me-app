@@ -1,13 +1,16 @@
-import React, {FC, useEffect, useRef} from 'react';
+import React, {FC, useEffect} from 'react';
 import style from "@/modules/MessengerModule/styles/Messenger.module.scss";
 import {Messages, SendMessageForm} from "@/modules/MessengerModule/components";
 import useAction, {useAppSelector} from "@/hooks/redux";
 import {useChat} from "@/hooks/useChat";
+import {MessageType} from "@/models/IMessage";
+import sendEventMessage from "@/modules/MessengerModule/utils/send-event-message";
 
 export const ChatBody: FC = () => {
-    const {room} = useAppSelector(state => state.room)
+    const {room, roomEvent} = useAppSelector(state => state.room)
+    const {userData} = useAppSelector(state => state.auth)
     const {sendMessage, deleteMessage, editMessage, scrollRef, onScroll} = useChat(room!.id)
-    const {exitRoom, deleteEditableMessage} = useAction()
+    const {exitRoom, deleteEditableMessage, setRoomEvent} = useAction()
 
     useEffect(() => {
         return () => {
@@ -15,6 +18,12 @@ export const ChatBody: FC = () => {
             deleteEditableMessage()
         }
     }, [])
+
+    useEffect(() => {
+        if(!room || roomEvent === 'none') return
+        sendEventMessage(roomEvent, room, userData.id, sendMessage)
+        setRoomEvent('none')
+    }, [roomEvent])
 
     return (
         <div className={style.body}>

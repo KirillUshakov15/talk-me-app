@@ -1,8 +1,13 @@
 import {api} from "@/services/index";
-import {EDIT_USER_PASSWORD, EDIT_USER_PROFILE, GET_USER, GET_USER_ROOMS} from "@/contants/api";
+import {
+    EDIT_USER_PASSWORD,
+    EDIT_USER_PROFILE,
+    GET_FRIENDS,
+    GET_USER,
+    GET_USER_ROOMS
+} from "@/contants/api";
 import {IUser} from "@/models/IUserData";
 import {popupActionCreator} from "@/store/popup/actions";
-import {IRoom} from "@/models/IRoom";
 
 export const userAPI = api.injectEndpoints({
     endpoints: (build) => ({
@@ -68,17 +73,18 @@ export const userAPI = api.injectEndpoints({
                 }
             }
         }),
-        getRooms: build.query<IRoom[], string>({
+        getFriends: build.query<IUser[], string>({
             query: () => {
                 return {
-                    url: GET_USER_ROOMS,
+                    url: GET_FRIENDS,
                     method: 'GET',
                     headers: {
                         'authorization': `Bearer ${localStorage.getItem('accessToken')}`
                     },
                     credentials: 'include',
                 }
-            }
+            },
+            providesTags: result => ['User']
         })
     }),
 })
@@ -87,5 +93,5 @@ export const {
     useGetUserQuery,
     useEditProfileMutation,
     useEditPasswordMutation,
-    useGetRoomsQuery
+    useGetFriendsQuery,
 } = userAPI

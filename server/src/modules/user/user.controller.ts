@@ -30,10 +30,10 @@ export class UserController{
         return await this.userService.getOne(id);
     }
 
-    @Get('/rooms')
+    @Get('/friends/all')
     @UseGuards(CheckAuthGuard)
-    async getRooms(@User() user: IUserData){
-        return await this.userService.getRooms(user.id)
+    async getFriends(@User() user: IUser){
+        return await this.userService.getFriends(user.id);
     }
 
     @Patch('/edit-profile')
@@ -45,7 +45,7 @@ export class UserController{
         @Body() editUserData: EditUserDto,
         @User() user: IUser
     ){
-        return await this.userService.edit(user.id, {...editUserData, avatarUrl: avatar?.filename})
+        return await this.userService.edit({...editUserData, id: user.id, avatarUrl: avatar?.filename})
     }
 
     @Patch('/edit-password')
@@ -54,5 +54,4 @@ export class UserController{
     async editPassword(@Body() editPasswordData: EditPasswordDto, @User() user: IUser){
         return await this.userService.editPassword(user.email, editPasswordData)
     }
-
 }

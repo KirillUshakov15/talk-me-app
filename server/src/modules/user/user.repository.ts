@@ -1,5 +1,5 @@
 import {Injectable} from "@nestjs/common";
-import {Repository} from "typeorm";
+import {getRepository, Not, Repository} from "typeorm";
 import {UserEntity} from "./user.entity";
 import {InjectRepository} from "@nestjs/typeorm";
 import {CreateUserDto} from "./dto/create-user.dto";
@@ -36,21 +36,21 @@ export class UserRepository{
         return user;
     }
 
-    public async getUserRooms(id: string){
-
-        const user = await this.userEntity.findOne({
-            where: {id},
-            order: {rooms: {messages: {timestamp: 'DESC'}}},
-            relations: {rooms: {users: true, messages: {author: true}}}});
-        return user.rooms;
+    public async getFriends(id: string): Promise<IUser[]>{
+        return await this.userEntity.find({where: {id: Not(id)}});
     }
 
-    public async edit(id: string, editData: EditUserDto){
+    public async edit(editData: EditUserDto){
+        const {id} = editData
         return await this.userEntity.update({id}, {...editData})
     }
 
     public async editPassword(id: string, password: string){
         return await this.userEntity.update({id}, {password: password})
+    }
+
+    public async deleteAvatar(id: string){
+        return await this.userEntity.update({id}, {avatarUrl: null})
     }
 
 }

@@ -12,4 +12,13 @@ export const popupActionCreator = {
     closeAlert: () => (dispatch: AppDispatch) => {
         dispatch(popupSlice.actions.closeAlert())
     },
+    openModal: (name: string) => (dispatch: AppDispatch) => {
+        dispatch(popupSlice.actions.setOpenModal({
+            isOpen: true,
+            name: name
+        }))
+    },
+    closeModal: () => (dispatch: AppDispatch) => {
+        dispatch(popupSlice.actions.closeModal())
+    },
 }

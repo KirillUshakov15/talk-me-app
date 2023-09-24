@@ -7,7 +7,9 @@ import {Alert} from "@/ui/Alert";
 import {Form} from "@/ui/Form";
 import {Sidebar} from "@/ui/Sidebar";
 import {Skeleton} from "@/ui/Skeleton";
-import {Uploader} from "@/ui/Uploader";
+import {Uploader, ImageUploader} from "@/ui/Uploader";
+import {Modal} from '@/ui/Modal'
+import {Icon} from '@/ui/Icon'
 
 export {
     Button,
@@ -19,5 +21,8 @@ export {
     Form,
     Sidebar,
     Skeleton,
-    Uploader
+    Uploader,
+    Modal,
+    Icon,
+    ImageUploader,
 }

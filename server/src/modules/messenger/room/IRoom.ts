@@ -11,6 +11,12 @@ export interface IRoom {
     name?: string;
     icon: string;
     type: RoomType;
-    users: IUser[]
+    author?: IUser;
+    users?: IUser[]
     messages: IMessage[]
+}
+
+export interface IRoomPagination {
+    count: number;
+    rooms: IRoom[]
 }

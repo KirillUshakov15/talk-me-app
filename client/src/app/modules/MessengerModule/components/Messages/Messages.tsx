@@ -5,7 +5,7 @@ import {getDate} from "@/utils/datetime";
 import {useAppSelector} from "@/hooks/redux";
 
 interface IProps {
-    onDelete: (id: string) => void
+    onDelete: (id: string) => () => void
 }
 
 export const Messages: FC<IProps> = ({onDelete}) => {

@@ -10,7 +10,7 @@ export class ApiError extends HttpException {
     }
 
     static Unauthorised(){
-        return new ApiError(401, 'Нет доступа, так как пользователь не авторизован');
+        return new ApiError(401, 'Нет доступа для неавторизованного пользователя');
     }
 
     static Forbidden(message: string = 'У Вас нет доступа для совершения данного действия'){

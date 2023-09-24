@@ -1,34 +1,26 @@
 import React, {FC} from 'react';
 import style from '@/modules/MessengerModule/styles/Messenger.module.scss'
-import {UserIcon} from "@/components/UserIcon";
+import {UserIcon} from "@/components/Icons";
 import {IMessage} from "@/models/IMessage";
 import useAction, {useAppSelector} from "@/hooks/redux";
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import isCurrentUser from "@/utils/is-current-user";
 import {RoomType} from "@/models/IRoom";
 import {getTime} from "@/utils/datetime";
+import isMessageTypeDefault from "@/modules/MessengerModule/utils/is-message-type-default";
 
 interface IProps{
     body: IMessage;
-    onDelete: (id: string) => void
+    onDelete: (id: string) => () => void
 }
 
 export const Message: FC<IProps> = ({body, onDelete}) => {
     const {room} = useAppSelector(state => state.room)
     const {editableMessage} = useAppSelector(state => state.message)
     const {setEditableMessage} = useAction()
-    const navigate = useNavigate();
-    const {id, text, timestamp, author, isEdit} = body;
+    const {id, text, timestamp, author, isEdit, type} = body;
 
-    const userIsAuthor = isCurrentUser(author.id)
-
-    const openUserProfilePage = () => {
-        navigate(`../profile/${body.author.id}`)
-    }
-
-    const deleteMessage = () => {
-        onDelete(id)
-    }
+    const userIsAuthor = isCurrentUser(author?.id)
 
     const selectMessageForEdit = () => {
         setEditableMessage({id, text})
@@ -36,36 +28,38 @@ export const Message: FC<IProps> = ({body, onDelete}) => {
 
     return (
         <div className={userIsAuthor ? `${style.messageToWrapper}` : `${style.messageFromWrapper}`}>
-            <div className={style.messageContainer}>
-                {text}
-                {(userIsAuthor && !editableMessage) &&
+            <div className={isMessageTypeDefault(type) ? `${style.messageContainer}` : `${style.systemMessage}`}>
+                <p>{text}</p>
+                {(userIsAuthor && !editableMessage && isMessageTypeDefault(type)) &&
                     <>
                         <i onClick={selectMessageForEdit} className='bx bx-pencil'></i>
-                        <i onClick={deleteMessage} className='bx bx-trash'></i>
+                        <i onClick={onDelete(id)} className='bx bx-trash'></i>
                     </>
                 }
             </div>
-
-            <div className={style.footer}>
-                <div className={style.icon}>
-                    <UserIcon onClick={openUserProfilePage} icon={author.avatarUrl} />
-                </div>
-
-                <div className={style.footerText}>
-                    <div>
-                        {(!userIsAuthor && room!.type === RoomType.CONVERSATION) &&
-                            <p>{author.firstName + ' ' + author.secondName}</p>
-                        }
+            {isMessageTypeDefault(type) &&
+                <Link to={`../profile/${body.author?.id}`}>
+                <div className={style.footer}>
+                    <div className={style.icon}>
+                            <UserIcon icon={author.avatarUrl} />
                     </div>
-                    <div>
-                        <p>
-                            {getTime(timestamp)}
-                            {isEdit && ' (ред.)'}
-                        </p>
+
+                    <div className={style.footerText}>
+                        <div>
+                            {(!userIsAuthor && room!.type === RoomType.CONVERSATION) &&
+                                <p>{author.firstName + ' ' + author.secondName}</p>
+                            }
+                        </div>
+                        <div>
+                            <p>
+                                {getTime(timestamp)}
+                                {isEdit && ' (ред.)'}
+                            </p>
+                        </div>
                     </div>
                 </div>
-
-            </div>
+                </Link>
+            }
         </div>
     );
 };

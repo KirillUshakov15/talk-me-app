@@ -51,7 +51,7 @@ export const LoginForm: FC = () => {
                         placeholder="Введите пароль..."
                     />
 
-                    <Button type='submit' loading={isLoading}>Войти</Button>
+                    <Button.Primary type='submit' loading={isLoading}>Войти</Button.Primary>
 
                     <Divider/>
 

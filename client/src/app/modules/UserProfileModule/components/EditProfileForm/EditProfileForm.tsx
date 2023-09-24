@@ -1,13 +1,13 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Button, Divider, Form, Input, Spinner, Uploader} from "@/ui";
+import {Button, Divider, Form, ImageUploader, Input, Spinner} from "@/ui";
 import {useEditProfileMutation, useGetUserQuery} from "@/services/user-service";
-import {useAppSelector} from "@/hooks/redux";
+import useAction, {useAppSelector} from "@/hooks/redux";
 import {IUser} from "@/models/IUserData";
 import useInput from "@/hooks/useInput";
 import style from '@/modules/UserProfileModule/styles/Style.module.scss'
-import {API_SERVER_IMAGES_PATH} from "@/contants/api";
 import {Avatar} from "@/modules/UserProfileModule/components";
-import icons from "@/assets/icons";
+import {ConfirmModal} from "@/components";
+import {DELETE_AVATAR_MODAL} from "@/contants/modal-names";
 
 interface IEditUserData{
     firstName: string,
@@ -20,7 +20,10 @@ const initialState = {
 }
 
 export const EditProfileForm: FC = () => {
+    const formData = new FormData();
     const {userData} = useAppSelector(state => state.auth)
+    const {openModal} = useAction()
+
     const [editData, setEditData] = useState<IEditUserData>(initialState);
     const [avatar, setAvatar] = useState(null)
     const handleChange = useInput(setEditData);
@@ -29,7 +32,7 @@ export const EditProfileForm: FC = () => {
     const [editProfile, {isLoading}] = useEditProfileMutation()
 
     useEffect(() => {
-        if(user){
+        if(user && !isFetching){
             setDataForEdit();
         }
     }, [user])
@@ -50,12 +53,22 @@ export const EditProfileForm: FC = () => {
         )
     }
 
+    const openDeleteAvatarModal = () => {
+        openModal(DELETE_AVATAR_MODAL)
+    }
+
     const submit = () => {
-        const formData = new FormData();
         formData.append('firstName', editData.firstName)
         formData.append('secondName', editData.secondName)
         if(avatar) formData.append('avatar', avatar)
+        editProfile(formData)
+        setAvatar(null)
+    }
 
+    const deleteAvatar = () => {
+        if(user.avatarUrl) formData.append('deletableAvatar', user.avatarUrl)
+        formData.append('firstName', user.firstName)
+        formData.append('secondName', user.secondName)
         editProfile(formData)
     }
 
@@ -65,12 +78,11 @@ export const EditProfileForm: FC = () => {
 
                 <h2>Редактирование профиля</h2>
 
-                <Uploader
-                    file={avatar}
-                    setFile={setAvatar}
-                    fileType={'image/*'}
-                    title={user.avatarUrl ? "Изменить аватар" : "Загрузить аватар"}
-                />
+                <div className={style.avatarContainer}>
+                    <ImageUploader existingImage={user.avatarUrl} file={avatar} setFile={setAvatar} onDelete={openDeleteAvatarModal}>
+                        <Avatar uploadedImage={avatar && URL.createObjectURL(avatar)} image={user.avatarUrl}/>
+                    </ImageUploader>
+                </div>
 
                 <h3>Электронная почта: {user.email}</h3>
 
@@ -87,8 +99,17 @@ export const EditProfileForm: FC = () => {
 
                 <Divider/>
 
-                <Button type="submit" loading={isLoading}>Редактировать профиль</Button>
+                <Button.Primary type="submit" loading={isLoading}>
+                    <i className='bx bx-pencil'></i>
+                    Сохранить изменения
+                </Button.Primary>
             </Form>
+            <ConfirmModal
+                modalName={DELETE_AVATAR_MODAL}
+                title="Подтверждение удаления"
+                text="Вы действительно хотите удалить фотографию?"
+                onPressYes={deleteAvatar}
+            />
         </div>
     );
 };

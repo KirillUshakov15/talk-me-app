@@ -1,13 +1,67 @@
 @import '@/styles/templates.scss';
 
-.wrapper{
+.layoutWrapper{
   display: flex;
   width: 100%;
   min-height: calc(100vh - 100px);
   padding-top: 10px;
+  overflow-x: auto;
+
+  z-index: 1;
 
   @media (max-width: 900px) {
-      overflow-x: auto;
+
   }
 }
+
+.modalWrapper{
+  width: 30vw;
+  Form{
+    width: 100%;
+  }
+}
+
+.createConvFormContainer{
+
+  .avatarContainer, .uploaderContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  Input{
+    margin-top: 20px;
+  }
+
+  h4{
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+}
+
+.friendsContainerWrapper{
+  margin-bottom: 20px;
+  //display: flex;
+  overflow-y: auto;
+  height: 200px;
+
+  .friendContainer{
+    display: flex;
+
+    padding: 5px 5px 5px 10px;
+
+    justify-content: space-between;
+    p{
+      @include trimmer;
+      margin-top: 10px;
+      margin-left: 15px;
+    }
+
+    .checkBox{
+      margin-top: 10px;
+      margin-left: 15px;
+    }
+  }
+}
+
 

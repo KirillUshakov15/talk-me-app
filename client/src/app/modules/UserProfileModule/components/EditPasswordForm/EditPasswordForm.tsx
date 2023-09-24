@@ -52,7 +52,7 @@ export const EditPasswordForm: FC = () => {
 
                 <Divider/>
 
-                <Button type="submit" loading={isLoading}>Изменить пароль</Button>
+                <Button.Primary type="submit" loading={isLoading}>Изменить пароль</Button.Primary>
             </Form>
         </div>
 

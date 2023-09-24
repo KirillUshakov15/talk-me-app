@@ -19,16 +19,21 @@ export const ProfileLayout: FC = () => {
     }
 
     return (
-        <div className={style.wrapper}>
-            <div className={style.leftContainer}>
-                <Avatar image={user.avatarUrl}/>
-                <ProfileButtons userID={user.id}/>
-            </div>
-
-            <div className={style.rightContainer}>
+        <>
+            <div className={style.header}>
                 <UserInfoCard username={`${user.firstName} ${user.secondName}`} online={user.online}/>
-                <div className={style.wall}/>
             </div>
-        </div>
+            <div className={style.wrapper}>
+                <div className={style.leftContainer}>
+                    <Avatar image={user.avatarUrl}/>
+                    <ProfileButtons userID={user.id}/>
+                </div>
+
+                <div className={style.rightContainer}>
+                    <div className={style.wall}/>
+                </div>
+            </div>
+        </>
+
     );
 };

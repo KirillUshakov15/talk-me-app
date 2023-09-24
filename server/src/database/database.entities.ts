@@ -7,5 +7,5 @@ export default [
     UserEntity,
     TokenEntity,
     RoomEntity,
-    MessageEntity
+    MessageEntity,
 ]

@@ -1,8 +1,12 @@
 import React, {FC} from 'react';
 import style from './Divider.module.scss'
 
-export const Divider: FC = () => {
+interface IProps {
+    className?: string;
+}
+
+export const Divider: FC<IProps> = ({className}) => {
     return (
-        <hr className={style.divider}/>
+        <hr className={`${className} ${style.divider}`}/>
     );
 };

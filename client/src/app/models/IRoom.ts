@@ -1,4 +1,4 @@
-import {IUserData} from "@/models/IUserData";
+import {IUser, IUserData} from "@/models/IUserData";
 import {IMessage} from "@/models/IMessage";
 
 export enum RoomType {
@@ -11,6 +11,12 @@ export interface IRoom {
     name: string | null;
     type: RoomType
     icon: string;
-    users?: IUserData[]
+    author?: IUser
+    users?: IUser[]
     messages: IMessage[]
+}
+
+export interface IRoomPagination {
+    count: number;
+    rooms: IRoom[]
 }

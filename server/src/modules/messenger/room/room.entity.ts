@@ -1,4 +1,14 @@
-import {Column, Entity, ManyToMany, JoinTable, PrimaryGeneratedColumn, OneToMany, JoinColumn} from "typeorm";
+import {
+    Column,
+    Entity,
+    ManyToMany,
+    JoinTable,
+    PrimaryGeneratedColumn,
+    OneToMany,
+    JoinColumn,
+    OneToOne,
+    ManyToOne
+} from "typeorm";
 import {IUser} from "../../user/IUser";
 import {UserEntity} from "../../user/user.entity";
 import {RoomType} from "./IRoom";
@@ -18,6 +28,10 @@ export class RoomEntity{
 
     @Column({nullable: true, default: null})
     icon: string;
+
+    @ManyToOne(() => UserEntity)
+    @JoinColumn()
+    author: IUser | null;
 
     @ManyToMany(() => UserEntity)
     @JoinTable({

@@ -1,9 +1,13 @@
 .wrapper{
+  display: flex;
+  padding: 0;
   input{
     display: none;
   }
 
-  display: flex;
+  @media (min-width: 1224px) {
+    display: flex;
+  }
 
   Button{
     margin-right: 10px;
@@ -14,11 +18,66 @@
 
   .fileContainer{
     display: flex;
-    margin-top: 10px;
-    span{
+    margin-top: auto;
+    margin-bottom: auto;
+    p{
+      font-weight: bold;
+      font-size: 18px;
+    }
+    i{
+      vertical-align: text-top;
       cursor: pointer;
+      margin-top: 3px;
       margin-left: 10px;
       font-weight: bold;
     }
+  }
+}
+
+.imageUploaderWrapper{
+
+  cursor: pointer;
+  i{
+    display: none;
+  }
+}
+
+i, h5{
+  display: none;
+}
+
+@mixin colorize($color) {
+  color: $color + 50;
+
+  &:hover {
+    color: $color + 100;
+  }
+}
+
+.imageUploaderWrapper:hover{
+  position: relative;
+  top: 0;
+  opacity: 0.7;
+
+  i{
+    @include colorize(black);
+    font-size: 220%;
+    display: block;
+    position: absolute;
+    //color: black;
+    //color: #6e6d6d;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  h5{
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    position: absolute;
+    top: -10px;
+    right: -10px;
   }
 }

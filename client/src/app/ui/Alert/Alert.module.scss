@@ -1,7 +1,7 @@
 
 .container{
   height: 50px;
-  z-index: 9;
+  z-index: 999999;
   position: absolute;
   top: 0;
   transform: translateY(-110%);
@@ -15,6 +15,7 @@
 }
 
 .body{
+  position: relative;
   background-color: #e4e4ed;
   border-radius: 10px;
   display: flex;

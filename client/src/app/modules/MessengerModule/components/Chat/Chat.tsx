@@ -17,7 +17,7 @@ export const Chat: FC = () => {
                     <ChatBody/>
                 </div>
                 :
-                <MediaQuery minWidth={768}>
+                <MediaQuery minWidth={840}>
                     <div className={style.nonSelectedRoomLabelContainer}>
                         <h2>Выберите, кому бы хотели написать</h2>
                     </div>

@@ -2,25 +2,24 @@
 
 .chatContainer{
   width: 100%;
+  min-width: 320px;
   margin-left: 20px;
-  max-height: calc(100vh - 130px);
+  //max-height: calc(100vh - 130px);
+  //@include trimmer;
 
   @media (max-width: 768px){
     margin-left: 0;
+    min-width: 220px;
   }
 }
 
 .header{
+  display: flex;
   @extend .card;
-  width: 100%;
   height: 85px;
-  position: relative;
-  top: 0;
 
   background-color: #0d7534;
   color: #e4e4ed;
-
-  display: flex;
 
   min-height: 70px;
 
@@ -31,19 +30,36 @@
     cursor: pointer;
   }
 
-  .userContainer{
+  .roomInfoContainer{
     margin-top: 15px;
     margin-bottom: 10px;
     margin-left: 10px;
+
+    @include trimmer;
+
+    h3{
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 768px){
+      h4{
+        margin-top: 10px;
+        font-size: 13px;
+      }
+    }
+
+    h4:hover{
+      color: #b6b6ba;
+      cursor: pointer;
+    }
   }
 
   .exitRoom{
-    margin-right: auto;
+    margin-left: auto;
     padding: 15px;
-    position: absolute;
     border-radius: 15px;
-    top: 10px;
-    right: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     img{
       transform: scaleX(-1);
@@ -52,7 +68,7 @@
 
   .exitRoom:hover{
     cursor: pointer;
-    background-color: #11552a;
+    background-color: #0f9642;
   }
 }
 
@@ -60,11 +76,10 @@
   width: 100%;
 
   .messagesContainer{
-    height: calc(100vh - 260px);
+    min-height: 500px;
+    height: calc(100vh - 270px);
     overflow-y: auto;
     margin-top: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
     width: 100%;
     display: flex;
     flex-direction: column-reverse;
@@ -94,16 +109,28 @@
     display: flex;
     justify-content: space-between;
     width: 30%;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-top: 5px;
+    padding-left: 2%;
+    padding-right: 2%;
     min-width: fit-content;
 
+    @media (max-width: 768px){
+      width: 96%;
+    }
+
+    i{
+      margin-top: 3px;
+    }
+
     p{
+      margin-left: 5px;
       cursor: pointer;
     }
   }
 
   .submitForm{
+    //margin-top: 15px;
+    //min-width: 320px;
     width: 100%;
     //margin: 0 0 2%;
     display: flex;
@@ -119,13 +146,15 @@
   @extend .chatContainer;
   @include alignCenter;
   overflow: hidden;
+
+  h2{
+    z-index: 0;
+  }
 }
 
 @mixin messageWrapper{
   margin-bottom: 60px;
 }
-
-
 
 @mixin message{
   border-radius: 15px;
@@ -138,6 +167,10 @@
 
   @media (max-width: 1224px){
     max-width: 100%;
+
+    p{
+      font-size: 14px;
+    }
   }
 
   i{
@@ -180,6 +213,24 @@
   p{
     margin-top: 5px;
     font-size: 12px;
+
+    @media (max-width: 1224px) {
+      margin-top: 0;
+    }
+  }
+}
+
+.systemMessage{
+  word-break: break-all;
+  hyphens: auto;
+  color: #0d0c29;
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 1224px) {
+    font-size: 16px;
   }
 }
 
@@ -206,6 +257,7 @@
 
     p{
       margin-right: 10px;
+      font-weight: bold;
     }
     flex-direction: row-reverse;
   }
@@ -226,6 +278,7 @@
       display: table-column;
       p{
         margin-left: 10px;
+        font-weight: bold;
       }
     }
 

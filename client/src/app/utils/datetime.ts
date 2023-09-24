@@ -9,16 +9,23 @@ export function getTime(timestamp?: string){
     return timestamp.split(' ')[1].split(':').slice(0, 2).join(':')
 }
 
-function formatDate(date: string){
+export function getLastMessageDateTime(timestamp?: string){
+    if(!timestamp) return;
+    return formatDate(timestamp.split(' ')[0], getTime(timestamp))
+
+
+}
+
+function formatDate(date: string, todayStr: string = 'Сегодня', yesterdayStr = 'Вчера'){
     const today = new Date();
     const yesterday = new Date(new Date().setDate(new Date().getDate()-1))
 
     switch (date) {
         case setFormatDate(today):{
-            return 'Сегодня'
+            return todayStr
         }
         case setFormatDate(yesterday):{
-            return 'Вчера'
+            return yesterdayStr
         }
         default: {
             return date

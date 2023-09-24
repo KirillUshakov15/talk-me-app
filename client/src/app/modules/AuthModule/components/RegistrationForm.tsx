@@ -76,7 +76,7 @@ export const RegistrationForm: FC = () => {
                         name="confirmPassword"
                     />
 
-                    <Button type='submit' loading={isLoading}>Зарегистрироваться</Button>
+                    <Button.Primary type='submit' loading={isLoading}>Зарегистрироваться</Button.Primary>
 
                     <Divider/>
 

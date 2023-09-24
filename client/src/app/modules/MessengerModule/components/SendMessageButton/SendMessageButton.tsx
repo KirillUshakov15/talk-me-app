@@ -3,8 +3,8 @@ import {Button} from "@/ui";
 
 export const SendMessageButton: FC = () => {
     return (
-        <Button type='submit'>
+        <Button.Primary type='submit'>
             <i className='bx bx-send'></i>
-        </Button>
+        </Button.Primary>
     );
 };

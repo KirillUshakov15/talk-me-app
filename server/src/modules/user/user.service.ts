@@ -4,6 +4,7 @@ import {UserRepository} from "./user.repository";
 import {EditUserDto} from "./dto/edit-user.dto";
 import {EditPasswordDto} from "./dto/edit-password.dto";
 import * as bcrypt from "bcryptjs"
+import * as fs from 'fs';
 import {ApiError} from "../../api-error/api-error";
 import {RoomType} from "../messenger/room/IRoom";
 import {RoomService} from "../messenger/room/room.service";
@@ -13,7 +14,6 @@ export class UserService{
 
     constructor(
         private readonly userRepository: UserRepository,
-        private readonly roomService: RoomService
     ) {}
 
     public async create(dto: CreateUserDto){
@@ -24,16 +24,8 @@ export class UserService{
         return await this.userRepository.getOne(id);
     }
 
-    public async getRooms(currentUserID: string){
-        const rooms = await this.userRepository.getUserRooms(currentUserID);
-
-        return rooms.filter(room => { return room.messages.length > 0 }).map(room => {
-            if(room.type === RoomType.DIALOG) this.roomService.prepareDialog(room, currentUserID)
-            this.roomService.getLastMessage(room)
-            return room;
-        }).sort((x, y) => {
-            return x.messages[0].timestamp < y.messages[0].timestamp ? 1 : -1
-        })
+    public async getFriends(id: string){
+        return await this.userRepository.getFriends(id);
     }
 
     public async findByEmail(email: string){
@@ -51,7 +43,14 @@ export class UserService{
         await this.userRepository.editPassword(user.id, await bcrypt.hash(newPassword, 5))
     }
 
-    public async edit(id: string, editData: EditUserDto){
-        return await this.userRepository.edit(id, {...editData});
+    public async edit(editData: EditUserDto){
+        const {id, deletableAvatar, avatarUrl, secondName, firstName} = editData
+        if(deletableAvatar) await this.deleteAvatar(id, deletableAvatar)
+        return await this.userRepository.edit({id, avatarUrl, secondName, firstName});
+    }
+
+    public async deleteAvatar(userID: string, fileName: string){
+        fs.unlinkSync(`./uploads/images/${fileName}`)
+        return await this.userRepository.deleteAvatar(userID)
     }
 }

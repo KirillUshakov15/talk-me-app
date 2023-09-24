@@ -8,8 +8,14 @@ interface IAlert {
     type: AlertType
 }
 
+interface IModal {
+    isOpen: boolean,
+    name: string,
+}
+
 interface IPopupState {
-    alert: IAlert
+    alert: IAlert,
+    modal: IModal
 }
 
 const initialState: IPopupState = {
@@ -17,6 +23,10 @@ const initialState: IPopupState = {
         isShow: false,
         title: '',
         type: "INFO"
+    },
+    modal: {
+        isOpen: false,
+        name: ''
     }
 }
 
@@ -31,6 +41,14 @@ export const popupSlice = createSlice({
         },
         closeAlert(state){
             state.alert.isShow = false;
+        },
+        setOpenModal(state, action: PayloadAction<IModal>){
+            state.modal.isOpen = action.payload.isOpen;
+            state.modal.name = action.payload.name;
+        },
+        closeModal(state){
+            state.modal.isOpen = false;
+            state.modal.name = '';
         }
     }
 });

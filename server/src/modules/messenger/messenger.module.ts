@@ -9,6 +9,8 @@ import {MessageRepository} from "./message/message.repository";
 import {MessageEntity} from "./message/message.entity";
 import {MessengerGateway} from "./messenger.gateway";
 import {TokenModule} from "../token/token.module";
+import {UserModule} from "../user/user.module";
+import {UserEntity} from "../user/user.entity";
 
 @Module({
     controllers: [RoomController],
@@ -16,9 +18,11 @@ import {TokenModule} from "../token/token.module";
     imports: [
         TypeOrmModule.forFeature([
             RoomEntity,
-            MessageEntity
+            MessageEntity,
+            UserEntity,
         ]),
-        TokenModule
+        TokenModule,
+        UserModule
     ],
     exports: [RoomService]
 })

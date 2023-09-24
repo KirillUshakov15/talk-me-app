@@ -1,10 +1,16 @@
 import {IUser} from "@/models/IUserData";
 import {IRoom} from "@/models/IRoom";
 
+export enum MessageType {
+    DEFAULT = "DEFAULT",
+    SYSTEM = "SYSTEM"
+}
+
 export interface IMessage{
     id: string;
     text: string;
     author: IUser;
+    type: MessageType;
     //room: IRoom;
     timestamp: string;
     isEdit: boolean;

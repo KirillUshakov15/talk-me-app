@@ -1,4 +1,4 @@
-import {Column, Entity, ManyToMany, PrimaryGeneratedColumn, JoinTable} from "typeorm";
+import {Column, Entity, ManyToMany, PrimaryGeneratedColumn, JoinTable, OneToMany, JoinColumn} from "typeorm";
 import {IRoom} from "../messenger/room/IRoom";
 import {RoomEntity} from "../messenger/room/room.entity";
 

@@ -1,6 +1,8 @@
 import {IsString, MinLength} from "class-validator";
 
 export class EditUserDto{
+    id: string;
+
     @IsString()
     @MinLength(2)
     firstName: string;
@@ -10,4 +12,6 @@ export class EditUserDto{
     secondName: string;
 
     avatarUrl: string;
+
+    deletableAvatar?: string;
 }

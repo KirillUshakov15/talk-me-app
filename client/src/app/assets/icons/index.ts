@@ -6,6 +6,8 @@ import userRegular from '@/assets/icons/bx-user-circle.svg'
 import conversation from '@/assets/icons/bx-conversation.svg'
 import friends from '@/assets/icons/bx-friends.svg'
 import exit from '@/assets/icons/bx-exit.svg'
+import avatarDefault from '@/assets/icons/avatar-default.png'
+import roomIcon from '@/assets/icons/room-icon.png'
 
 export default {
     show,
@@ -15,5 +17,7 @@ export default {
     conversation,
     friends,
     exit,
-    userRegular
+    userRegular,
+    avatarDefault,
+    roomIcon
 }

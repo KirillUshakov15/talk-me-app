@@ -1,6 +1,7 @@
 import {io, Socket} from "socket.io-client";
 import {API_SERVER_URL} from "@/contants/api";
 import {useRef} from "react";
+import {MessageType} from "@/models/IMessage";
 
 export default function (roomID: string, page: number){
 
@@ -29,8 +30,8 @@ export default function (roomID: string, page: number){
         })
     }
 
-    const sendMessage = (text: string, author: string) => {
-        const body = {text, author, roomID, page}
+    const sendMessage = (text: string, author: string, type: MessageType = MessageType.DEFAULT) => {
+        const body = {text, author, roomID, page, type}
         socket.current?.emit('message:send', body)
     }
 
@@ -40,8 +41,10 @@ export default function (roomID: string, page: number){
     }
 
     const deleteMessage = (id: string) => {
-        const body = {id, roomID, page}
-        socket.current?.emit('message:delete', body)
+        return () => {
+            const body = {id, roomID, page}
+            socket.current?.emit('message:delete', body)
+        }
     }
 
     return {

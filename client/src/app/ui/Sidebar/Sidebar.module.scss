@@ -11,7 +11,7 @@
 
   .item:hover{
     border-radius: 15px;
-    background-color: #11552a;
+    background-color: #0f9642;
   }
 
   .item{
@@ -55,9 +55,11 @@
     }
   }
 
-  @media (max-width: 1224px){
-    @include bodySlimTemplate;
-  }
 }
 
+@media (max-width: 520px){
+  .bodySlim{
+    display: none;
+  }
 
+}

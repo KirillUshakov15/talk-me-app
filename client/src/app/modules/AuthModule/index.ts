@@ -1,2 +1,1 @@
-export {LoginForm} from './components/LoginForm'
-export {RegistrationForm} from './components/RegistrationForm'
+export {LoginForm, RegistrationForm, LogoutModal} from './components'

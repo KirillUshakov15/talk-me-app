@@ -1,26 +1,55 @@
 
-$activeBtnColor: #11552a;
+$activeBtnColor: #0f9642;
 
-button{
-  background-color: #0d7534;
+@mixin buttonStyle{
+  color: #e4e4ed;
+  border: none;
   padding: 10px 32px;
   border-radius: 10px;
-  color: #e4e4ed;
   text-decoration: none;
-  border: none;
   font-size: 16px;
 
   div{
     display: inline-block;
+    i{
+      margin-right: 5px;
+    }
   }
 }
 
-button:hover:enabled{
-  background-color: $activeBtnColor;
+.buttonDefault{
+  @include buttonStyle;
+  //font-weight: bold;
+  background-color: #e4e4ed;
+  color: #0d7534;
+  border: 2px solid #0d7534;
+}
+
+.buttonDefault:hover:enabled{
+  background-color: #f0f0fa;
   cursor: pointer;
 }
 
 button:disabled{
-  background-color: $activeBtnColor;
+  opacity: 0.6;
   cursor: default;
+}
+
+.buttonDanger{
+  @include buttonStyle;
+  background-color: #e33b3b;
+}
+
+.buttonDanger:hover:enabled{
+  background-color: #F15E5E;
+  cursor: pointer;
+}
+
+.buttonPrimary{
+  @include buttonStyle;
+  background-color: #0d7534;
+}
+
+.buttonPrimary:hover:enabled{
+  background-color: $activeBtnColor;
 }
